@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "pre-deploy": "npm run build",
+    "predeploy": "npm run build",
     "deploy": "aws s3 sync build s3://poker.lightful.io/ --delete --cache-control \"max-age=1209600\""
   },
   "devDependencies": {

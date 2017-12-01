@@ -14,11 +14,16 @@ class PokerCard extends Component {
   }
 
   render () {
+    console.log('Value:')
+    console.log(this.props.value)
     return (
       <div className='PokerDeck--PokerCard__container'>
         <p className='PokerDeck--PokerCard__container__header'>{this.props.name}</p>
         <p className='PokerDeck--PokerCard__container__body'>
-          {this.props.revealed ? <span>{this.props.value}</span> : <Glyphicon glyph='question-sign'/>}
+          {this.props.revealed ?
+            this.props.value === undefined ? <Glyphicon glyph='pencil'/> : <span>{this.props.value}</span>
+            : <Glyphicon glyph='question-sign'/>
+          }
         </p>
       </div>
     )
