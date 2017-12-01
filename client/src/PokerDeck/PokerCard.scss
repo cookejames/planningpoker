@@ -1,0 +1,38 @@
+.PokerDeck {
+  &--PokerCard {
+    &__container {
+      $borderRadius: 15px;
+      $borderWidth: 2px;
+      display: flex;
+      flex-direction: column;
+      border: $borderWidth solid #000;
+      border-radius: $borderRadius;
+      height: 250px;
+      box-shadow: 3px 3px 3px 0px rgba(99,99,99,1);
+      margin-bottom: 10px;
+      &__header {
+        flex-basis: 15%;
+        font-weight: bold;
+        font-size: 150%;
+        background-color: #000;
+        color: #fff;
+        border-radius: ($borderRadius - $borderWidth) ($borderRadius - $borderWidth) 0 0;
+        margin: 0;
+        text-align: center;
+      }
+      &__body {
+        flex-basis: 85%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        & > span {
+          font-size: 600%;
+        }
+        &__button {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+}

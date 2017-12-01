@@ -1,0 +1,16 @@
+{
+  "name": "planningpoker-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "planningpoker.js",
+  "dependencies": {},
+  "devDependencies": {
+    "wt-cli": "^8.2.0"
+  },
+  "scripts": {
+    "start": "wt create --ignore-package-json --watch planningpoker.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
