@@ -5,11 +5,12 @@ import { Grid, Row, Col, PageHeader, Jumbotron } from 'react-bootstrap'
 
 class App extends Component {
   state = {
-    name: undefined
+    name: undefined,
+    isSpectator: undefined
   }
 
-  handleOnSelectName (name) {
-    this.setState({name})
+  handleOnSelectName (name, isSpectator) {
+    this.setState({name, isSpectator})
   }
 
   render() {
@@ -25,7 +26,11 @@ class App extends Component {
                 and start estimating a ticket. When you are all ready select an estimate then press
                 the 'Reveal All' button to show everyones estimates. Press the 'Clear All' button to start again.
               </p>
-              <NameForm setName={name => this.handleOnSelectName(name)}/>
+              <p>Spectators can only view scores but not contribute</p>
+              <NameForm
+                setName={name => this.handleOnSelectName(name, false)}
+                setSpectate={name => this.handleOnSelectName(name, true)}
+              />
             </Jumbotron>
           </Col>
         </Row>
@@ -35,7 +40,7 @@ class App extends Component {
           <Row>
             <Col md={12}><PageHeader>Planning Poker</PageHeader></Col>
           </Row>
-          <PokerDeck name={this.state.name}/>
+          <PokerDeck name={this.state.name} isSpectator={this.state.isSpectator}/>
         </div>
         }
       </Grid>

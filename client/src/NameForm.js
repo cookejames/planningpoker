@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, FormControl, Button } from 'react-bootstrap'
+import './NameForm.css'
 const MINIMUM_NAME_LENGTH = 3
 
 class NameForm extends Component {
@@ -9,7 +10,8 @@ class NameForm extends Component {
   }
 
   static propTypes = {
-    setName: PropTypes.func.isRequired
+    setName: PropTypes.func.isRequired,
+    setSpectate: PropTypes.func.isRequired
   }
 
   isNameValid () {
@@ -24,10 +26,6 @@ class NameForm extends Component {
 
   handleChange (e) {
     this.setState({name: e.target.value})
-  }
-
-  handleOnClick (e) {
-    this.props.setName(this.state.name)
   }
 
   render () {
@@ -45,12 +43,21 @@ class NameForm extends Component {
           />
           <FormControl.Feedback />
         </FormGroup>
-        <Button
-          type='submit'
-          disabled={!this.isNameValid()}
-          onClick={() => this.handleOnClick()}>
-          Enter
-        </Button>
+        <div className='NameForm__buttons'>
+          <Button
+            type='submit'
+            bsStyle="primary"
+            disabled={!this.isNameValid()}
+            onClick={() => this.props.setName(this.state.name)}>
+            Enter
+          </Button>
+          <Button
+            bsStyle="info"
+            disabled={!this.isNameValid()}
+            onClick={() => this.props.setSpectate(this.state.name)}>
+            Spectate
+          </Button>
+        </div>
       </form>
     )
   }

@@ -20,7 +20,8 @@ class PokerDeck extends Component {
     reveal: false
   }
   static propTypes = {
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    isSpectator: PropTypes.bool.isRequired
   }
 
   componentWillMount () {
@@ -33,7 +34,8 @@ class PokerDeck extends Component {
       authEndpoint: AUTH_ENDPOINT,
       auth: {
         headers: {
-          'x-pokername': this.props.name
+          'x-pokername': this.props.name,
+          'x-spectate': this.props.isSpectator
         }
       }
     })
@@ -47,7 +49,12 @@ class PokerDeck extends Component {
       const { myID } = event
       console.log(`My ID: ${myID}`)
       this.setState({myId: myID})
-      this.state.channel.members.each(member => this.addPlayer(member.id, member.info.name))
+
+      this.state.channel.members.each(member => {
+        if (!member.info.isSpectator) {
+          this.addPlayer(member.id, member.info.name)
+        }
+      })
     })
     this.state.channel.bind('pusher:member_added', e => this.memberJoined(e))
     this.state.channel.bind('pusher:member_removed', e => this.memberLeft(e))
@@ -66,9 +73,10 @@ class PokerDeck extends Component {
    * @param message
    */
   memberJoined (message) {
-    const {id, info: {name}} = message
-    this.addPlayer(id, name)
-
+    const {id, info: {name, isSpectator}} = message
+    if (!isSpectator) {
+      this.addPlayer(id, name)
+    }
   }
 
   /**
@@ -166,6 +174,7 @@ class PokerDeck extends Component {
   render () {
     return (
       <div>
+        {!this.props.isSpectator &&
         <Row>
           <Col md={12} className='PokerDeck--controls'>
             <Button
@@ -182,7 +191,9 @@ class PokerDeck extends Component {
             </Button>
           </Col>
         </Row>
+        }
         <Row>
+          {!this.props.isSpectator &&
           <Col xs={12} sm={6} md={3}>
             <SelectionCard
               name={this.props.name}
@@ -190,6 +201,7 @@ class PokerDeck extends Component {
               value={this.state.myValue}
             />
           </Col>
+          }
           {this.state.players.map((player, index) => (
             <Col xs={12} sm={6} md={3} key={index}>
               <PokerCard

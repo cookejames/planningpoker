@@ -19,6 +19,7 @@ module.exports = function (context, done) {
   const socketId = body.socket_id
   const channel = body.channel_name
   const userName = headers['x-pokername']
+  const spectate = headers['x-spectate']
 
   if (!userName || userName.length < 3) {
     const error = `Username not supplied or invalid: ${userName}`
@@ -33,7 +34,8 @@ module.exports = function (context, done) {
   const presenceData = {
     user_id: uuid(),
     user_info: {
-      name: userName
+      name: userName,
+      isSpectator: spectate === 'true'
     }
   }
   console.log('Authenticating user:', presenceData)
