@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Pusher from 'pusher-js'
-import update from 'immutability-helper';
+import update from 'immutability-helper'
 import PokerCard from './PokerCard'
 import SelectionCard from './SelectionCard'
+import Reveal from './Reveal'
 import { Row, Col, Button } from 'react-bootstrap'
 import './index.css'
 const CLUSTER = 'eu'
@@ -174,6 +175,7 @@ class PokerDeck extends Component {
   render () {
     return (
       <div>
+        {this.state.reveal && <Reveal fullscreen={this.state.myValue !== undefined || this.props.isSpectator}/>}
         {!this.props.isSpectator &&
         <Row>
           <Col md={12} className='PokerDeck--controls'>

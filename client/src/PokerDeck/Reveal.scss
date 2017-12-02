@@ -1,0 +1,32 @@
+.PokerDeck {
+  &--Reveal {
+    &__hidden {
+      display: none !important;
+    }
+    &__inline {
+      font-size: 200%;
+      width: 80%;
+      text-align: center;
+      background-color: #d9534f;
+      border-radius: 15px;
+      position: absolute;
+      z-index: 999;
+      left: 10%;
+    }
+    &__fullscreen {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 800%;
+      background-color: grey;
+      color: #fff;
+      opacity: 0.6;
+    }
+  }
+}
