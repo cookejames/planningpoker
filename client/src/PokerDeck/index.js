@@ -4,6 +4,7 @@ import Pusher from 'pusher-js'
 import update from 'immutability-helper';
 import PokerCard from './PokerCard'
 import SelectionCard from './SelectionCard'
+import Statistics from './Statistics'
 import { Row, Col, Button } from 'react-bootstrap'
 import './index.css'
 const CLUSTER = 'eu'
@@ -172,17 +173,23 @@ class PokerDeck extends Component {
   }
 
   render () {
+    const allPlayers = update(this.state.players, {$push: [{value: this.state.myValue, name: this.props.name}]})
     return (
       <div>
         {!this.props.isSpectator &&
         <Row>
           <Col md={12} className='PokerDeck--controls'>
+            {this.state.reveal &&
+            <Statistics players={allPlayers}/>
+            }
+            {!this.state.reveal &&
             <Button
               bsStyle="primary"
               onClick={() => this.onReveal()}
             >
               Reveal All
             </Button>
+            }
             <Button
               bsStyle="danger"
               onClick={() => this.onClear()}
