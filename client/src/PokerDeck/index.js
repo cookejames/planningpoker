@@ -176,6 +176,13 @@ class PokerDeck extends Component {
     const allPlayers = update(this.state.players, {$push: [{value: this.state.myValue, name: this.props.name}]})
     return (
       <div>
+        {(this.props.isSpectator && this.state.reveal) &&
+        <Row>
+          <Col md={12} className='PokerDeck--controls'>
+            <Statistics players={allPlayers}/>
+          </Col>
+        </Row>
+        }
         {!this.props.isSpectator &&
         <Row>
           <Col md={12} className='PokerDeck--controls'>
