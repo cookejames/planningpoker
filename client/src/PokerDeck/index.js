@@ -179,6 +179,8 @@ class PokerDeck extends Component {
 
   render () {
     const allPlayers = update(this.state.players, {$push: [{value: this.state.myValue, name: this.props.name}]})
+    const sortedPlayers = this.state.players.sort((a,b) =>
+      a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}))
     return (
       <div>
         {(this.props.isSpectator && this.state.reveal) &&
@@ -221,7 +223,7 @@ class PokerDeck extends Component {
             />
           </Col>
           }
-          {this.state.players.map((player, index) => (
+          {sortedPlayers.map((player, index) => (
             <Col xs={12} sm={6} md={3} key={index}>
               <PokerCard
                 name={player.name}
