@@ -13,17 +13,20 @@ class PokerCard extends Component {
     revealed: PropTypes.bool.isRequired
   }
 
+  getValue() {
+    if (this.props.revealed) {
+      return this.props.value === undefined ? <Glyphicon glyph='pencil'/> : <span>{this.props.value}</span>
+    } else {
+      return this.props.value === undefined ? <Glyphicon glyph='question-sign'/> : <Glyphicon glyph='ok'/>
+    }
+  }
   render () {
-    console.log('Value:')
-    console.log(this.props.value)
+    console.log('State change:', this.props.name, this.props.value, this.props.revealed)
     return (
       <div className='PokerDeck--PokerCard__container'>
         <p className='PokerDeck--PokerCard__container__header'>{this.props.name}</p>
         <p className='PokerDeck--PokerCard__container__body'>
-          {this.props.revealed ?
-            this.props.value === undefined ? <Glyphicon glyph='pencil'/> : <span>{this.props.value}</span>
-            : <Glyphicon glyph='question-sign'/>
-          }
+          { this.getValue() }
         </p>
       </div>
     )

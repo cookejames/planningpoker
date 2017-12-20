@@ -12,6 +12,7 @@ const AUTH_ENDPOINT = 'https://wt-978502515371c62b8ebcd23ed2fd1f64-0.run.webtask
 const EVENT_SELECT = 'client-selected'
 const EVENT_REVEAL = 'client-reveal'
 const EVENT_CLEAR = 'client-clear'
+const CHANNEL_NAME = 'poker'
 
 class PokerDeck extends Component {
   state = {
@@ -41,7 +42,7 @@ class PokerDeck extends Component {
       }
     })
 
-    const channel = pusher.subscribe('presence-poker')
+    const channel = pusher.subscribe(`presence-${CHANNEL_NAME}`)
     this.setState({pusher, channel})
   }
 
@@ -168,8 +169,12 @@ class PokerDeck extends Component {
    */
   onSelect (value) {
     console.log(`Selected value: ${value}`)
-    this.state.channel.trigger(EVENT_SELECT, {player: this.state.myId, value})
     this.setState({myValue: value})
+    this.state.channel.trigger(EVENT_SELECT, {player: this.state.myId, value})
+    const undecidedPlayers = this.state.players.filter(player => player.value === undefined)
+    if (undecidedPlayers.length === 0) {
+      this.onReveal()
+    }
   }
 
   render () {
