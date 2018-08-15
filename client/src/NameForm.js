@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, FormControl, Button } from 'react-bootstrap'
 import './NameForm.css'
-const MINIMUM_NAME_LENGTH = 3
+const MINIMUM_NAME_LENGTH = 2
 
 class NameForm extends Component {
   state = {
