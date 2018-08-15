@@ -21,7 +21,7 @@ module.exports = function (context, done) {
   const userName = headers['x-pokername']
   const spectate = headers['x-spectate']
 
-  if (!userName || userName.length < 3) {
+  if (!userName || userName.length < 2) {
     const error = `Username not supplied or invalid: ${userName}`
     console.error(error)
     return done({
